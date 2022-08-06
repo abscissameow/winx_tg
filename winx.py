@@ -75,6 +75,7 @@ def word2key(word, vectors):
     return None
 
 def execute(expression,vectors):
+    words=[]
     res=[np.array([0]*300)]
     plus=list(map(lambda x: x.strip(),expression.split('+')))
     negative=False
@@ -86,6 +87,7 @@ def execute(expression,vectors):
             minus=list(map(lambda x: x.strip(),i.split('-')))[1:]
         else:
             minus=list(map(lambda x: x.strip(),i.split('-')))
+        words.append(minus[0])
         word=word2key(minus[0],vectors)
         if not word:
             return None
@@ -94,12 +96,18 @@ def execute(expression,vectors):
         else:
             res+=vectors[word]
         for j in minus[1:]:
+            words.append(j)
             word=word2key(j,vectors)
             if not word:
                 return None
             res-=vectors[word]
-    res=vectors.similar_by_vector(res[0])[:3]
-    return [res[0][0].split('_')[0],res[1][0].split('_')[0],res[2][0].split('_')[0]]
+    res=vectors.similar_by_vector(res[0])
+    res1=[]
+    for i in res:
+        loc = i[0].split('_')[0].replace('::',' ')
+        if loc not in words and loc not in res1:
+            res1.append(loc)
+    return res1[:5]
 
 
 
