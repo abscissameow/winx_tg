@@ -18,7 +18,7 @@ def enablePrint():
     sys.stdout = sys.__stdout__
 
 
-TOKEN = '5504954650:AAG604-ipWZYHILipgwrKB8jLxPXFgTLKMw'
+TOKEN = 'ITS A SECRET! USE YOUR OWN TGBOT'
 
 #MEMORY={id:{q1:a1,q2:a2,...},...}
 MEMORY = {}
